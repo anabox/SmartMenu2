@@ -2,10 +2,11 @@ package org.example.dao;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import jakarta.transaction.Transactional;
 import org.example.entity.dish.Dish;
 import org.example.entity.dish.Ingredient;
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.*;
 import java.util.*;
@@ -25,13 +26,17 @@ public class MenuDaoImpl implements MenuDao {
 
 
     @Override
+    @Transactional
     public Dish read(long id) {
-        return entityManager.find(Dish.class, id);
+        Dish dish = entityManager.find(Dish.class, id);
+        Hibernate.initialize(dish.getIngredients());
+        return dish;
     }
 
     @Override
+    @Transactional
     public List<Dish> readAll() {
-        return entityManager.createQuery("SELECT d FROM Dish d", Dish.class).getResultList();
+        return entityManager.createQuery("SELECT d FROM Dish d JOIN d.ingredients i", Dish.class).getResultList();
     }
 
     @Override

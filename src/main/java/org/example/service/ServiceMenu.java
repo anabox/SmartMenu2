@@ -1,14 +1,16 @@
 package org.example.service;
 
-import jakarta.transaction.Transactional;
+
 import org.example.dao.MenuDao;
 import org.example.dto.DishCreateRequestDto;
 import org.example.dto.DishResponseDto;
 import org.example.entity.dish.Dish;
 import org.example.entity.dish.Ingredient;
 import org.example.mapper.DishMapper;
+import org.example.repository.IngredientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 import java.util.*;
@@ -27,16 +29,18 @@ import java.util.stream.Collectors;
 public class ServiceMenu {
     private MenuDao menuDao;
     private DishMapper dishMapper;
+    private IngredientRepository ingredientRepo;
 
     @Autowired
-    public ServiceMenu(DishMapper dishMapper, MenuDao menuDao) {
+    public ServiceMenu(DishMapper dishMapper, MenuDao menuDao, IngredientRepository ingredientRepo) {
         this.menuDao = menuDao;
         this.dishMapper = dishMapper;
+        this.ingredientRepo = ingredientRepo;
     }
 
     @Transactional
     public DishResponseDto create(DishCreateRequestDto candidate) {
-        Set<Ingredient> ingredientSet = candidate.ingredientIds().stream().map(id -> menuDao.getIngredient(id)).collect(Collectors.toSet());
+        Set<Ingredient> ingredientSet = new HashSet<>(ingredientRepo.findAllById(candidate.ingredientIds()));
         Dish dish = dishMapper.toDish(candidate, ingredientSet);
         return dishMapper.toDishResponseDto(menuDao.create(dish));
     }

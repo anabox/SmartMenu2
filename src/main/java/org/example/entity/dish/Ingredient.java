@@ -9,6 +9,7 @@ import java.util.Objects;
 import java.util.Set;
 
 @Data
+@EqualsAndHashCode(exclude = {"dishes"})
 @ToString (exclude = {"dishes"})
 @Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)

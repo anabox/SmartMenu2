@@ -9,6 +9,8 @@ import java.util.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@EqualsAndHashCode(exclude = {"ingredients"})
+@ToString(exclude = {"ingredients"})
 @Entity
 @Table(name = "dishes")
 public class Dish {
