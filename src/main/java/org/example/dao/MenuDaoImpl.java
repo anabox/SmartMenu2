@@ -7,8 +7,6 @@ import org.example.entity.dish.Ingredient;
 import org.hibernate.Hibernate;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.sql.*;
 import java.util.*;
 
 @Component
