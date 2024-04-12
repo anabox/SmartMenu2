@@ -9,6 +9,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="SpringMvcControllerExample" />
         <module name="SpringMVCRedirectTask" />
+        <module name="SmartMenu" />
         <module name="SpringMVCFeb6" />
         <module name="SpringMVCFeb15" />
         <module name="SpringMVCFeb8" />
@@ -17,6 +18,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="SmartMenu" options="-parameters" />
       <module name="SpringMVCFeb15" options="-parameters" />
     </option>
   </component>

@@ -1,21 +1,14 @@
 package org.example.entity.user;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import org.example.entity.dish.Dish;
+import org.example.entity.dish.Order;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
-@Entity
-@Table(name="users")
-@NoArgsConstructor
-@Data
-@EqualsAndHashCode(exclude = {"roles"})
-@ToString(exclude = {"roles"})
-public class MenuUser {
+public class UserWaiter {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
@@ -26,9 +19,5 @@ public class MenuUser {
     private String password;
     @ElementCollection
     private Set<String> roles = new HashSet<>();
-
-    public void addRole(String role){
-        roles.add(role);
-    }
-
+    private List<Order> orders;
 }

@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.example</groupId>
-    <artifactId>SpringMVCFeb15</artifactId>
+    <artifactId>SmartMenu</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
-    <name>SpringMVCFeb15 Maven Webapp</name>
+    <name>SmartMenu Maven Webapp</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -87,7 +87,7 @@
     </dependencies>
 
     <build>
-        <finalName>SpringMVCFeb15</finalName>
+        <finalName>SmartMenu</finalName>
         <plugins>
             <plugin> <!-- plugin для упрощения сборки и запуска приложения Spring Boot -->
                 <groupId>org.springframework.boot</groupId>

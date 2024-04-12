@@ -7,9 +7,9 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,6 +17,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 public class SecurityConfig {
     private UserDetailsService service;
 
@@ -26,12 +27,12 @@ public class SecurityConfig {
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return NoOpPasswordEncoder.getInstance();
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(PasswordEncoder passwordEncoder){
+    public AuthenticationManager authenticationManager(PasswordEncoder passwordEncoder) {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setPasswordEncoder(passwordEncoder);
         provider.setUserDetailsService(service);
@@ -40,12 +41,15 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain (HttpSecurity http, AuthenticationManager manager) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, AuthenticationManager manager) throws Exception {
         return http
-//                .csrf().disable()
+                .csrf().disable()
                 .authorizeHttpRequests(auth -> auth.requestMatchers("/login").permitAll()
-                        .requestMatchers("/menu/", "/menu").hasRole("ADMIN")
-                        .anyRequest().hasAnyRole("USER","ADMIN"))
+//                        .requestMatchers(HttpMethod.PATCH,"/menu/**").hasRole("ADMIN")
+//                        .requestMatchers(HttpMethod.DELETE,"/menu/**").hasRole("ADMIN")
+//                        .requestMatchers(HttpMethod.POST,"/menu/**").hasRole("ADMIN")
+//                        .requestMatchers(HttpMethod.PUT,"/menu/**").hasRole("ADMIN")
+                        .anyRequest().hasAnyRole("USER", "ADMIN"))
                 .formLogin(Customizer.withDefaults())
                 .logout(logout -> logout.logoutUrl("/logout").logoutSuccessUrl("/login"))
                 .authenticationManager(manager)
