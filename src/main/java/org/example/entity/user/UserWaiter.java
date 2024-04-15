@@ -1,7 +1,6 @@
 package org.example.entity.user;
 
 import jakarta.persistence.*;
-import org.example.entity.dish.Dish;
 import org.example.entity.dish.Order;
 
 import java.util.HashSet;
@@ -19,5 +18,8 @@ public class UserWaiter {
     private String password;
     @ElementCollection
     private Set<String> roles = new HashSet<>();
-    private List<Order> orders;
+   //запуталась в связке Официант-заказ
+    //у одного заказа может быть только один официант,
+   // но у одного официанта может быть много заказов
+    private Set<Order> orders;
 }

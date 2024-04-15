@@ -23,12 +23,6 @@ public final class Ingredient {
     private  long id;
     @Column(name = "name")
     private  String name;
-    @Column(name = "nutrition")
-    private  int nutrition;
-    @Column(name = "cooking_time")
-    private  Duration cookingTime;
-    @Column(name = "price")
-    private  int price;
     @ManyToMany(mappedBy = "ingredients")
     private Set<Dish> dishes = new HashSet<>();
 
