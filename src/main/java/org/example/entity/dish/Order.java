@@ -35,6 +35,7 @@ public class Order {
     @JoinColumn(name = "order_details_id", referencedColumnName = "id")
     private OrderDetails orderDetails;
 
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    private UserWaiter userWaiter;
 
 }
