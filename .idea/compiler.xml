@@ -9,10 +9,19 @@
         <outputRelativeToContentRoot value="true" />
         <module name="SpringMvcControllerExample" />
         <module name="SpringMVCRedirectTask" />
-        <module name="SmartMenu" />
         <module name="SpringMVCFeb6" />
         <module name="SpringMVCFeb15" />
         <module name="SpringMVCFeb8" />
+      </profile>
+      <profile name="Annotation profile for SmartMenu Maven Webapp" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct-processor/1.5.5.Final/mapstruct-processor-1.5.5.Final.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct/1.5.5.Final/mapstruct-1.5.5.Final.jar" />
+        </processorPath>
+        <module name="SmartMenu" />
       </profile>
     </annotationProcessing>
   </component>

@@ -9,8 +9,8 @@ import org.example.entity.dish.Ingredient;
 @EqualsAndHashCode(exclude = {"ingredients"})
 @ToString(exclude = {"ingredients"})
 @Entity
-@Table(name = "storage")
-public class Storage {
+@Table(name = "quantity")
+public class Quantity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")

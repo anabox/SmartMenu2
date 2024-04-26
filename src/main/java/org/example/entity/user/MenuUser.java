@@ -11,6 +11,9 @@ import java.util.Set;
 
 @Entity
 @Table(name="users")
+@Inheritance(strategy =
+        InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "type")
 @NoArgsConstructor
 @Data
 @EqualsAndHashCode(exclude = {"roles"})
@@ -26,7 +29,6 @@ public class MenuUser {
     private String password;
     @ElementCollection
     private Set<String> roles = new HashSet<>();
-
     public void addRole(String role){
         roles.add(role);
     }

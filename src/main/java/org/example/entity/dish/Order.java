@@ -5,13 +5,17 @@ import lombok.*;
 import org.example.entity.user.UserWaiter;
 import org.hibernate.annotations.UpdateTimestamp;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(exclude = {"orderDetails"})
-@EqualsAndHashCode(exclude = {"orderDetails"})
+@ToString(exclude = {"order_details"})
+@EqualsAndHashCode(exclude = {"order_details"})
 @Builder
 @Entity
 @Table(name = "orders")
@@ -31,10 +35,10 @@ public class Order {
     @Column (name = "table_num")
     private int tableNum;
 
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "order_details_id", referencedColumnName = "id")
-    private OrderDetails orderDetails;
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<OrderDetails> orderDetailsList = new ArrayList<>();
 
+    @Setter
     @ManyToOne(fetch = FetchType.LAZY)
     private UserWaiter userWaiter;
 

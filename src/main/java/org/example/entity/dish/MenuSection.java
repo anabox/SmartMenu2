@@ -13,37 +13,27 @@ import java.util.Set;
 @ToString(exclude = {"menus"})
 @EqualsAndHashCode(exclude = {"menus"})
 @Entity
-@Table(name = "menuSections",
-        uniqueConstraints = {
-                @UniqueConstraint(columnNames = "name")
-        })
+@Table(name = "menu_sections")
 public class MenuSection {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    @Column(name = "name")
+    @Column(name = "name",unique = true, nullable = false)
     private String name;
     @ManyToMany(mappedBy = "menuSections")
     private Set<Menu> menus = new HashSet<>();
 
-    @ManyToMany (cascade = {
-            CascadeType.PERSIST,
-            CascadeType.MERGE
-    })
-    @JoinTable(name = "menuSections_dishes",
-            joinColumns = @JoinColumn(name = "menuSection_id"),
-            inverseJoinColumns = @JoinColumn(name = "dish_id")
-    )
+    @OneToMany(mappedBy = "menuSection", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Dish> dishes = new HashSet<>();
 
     public void addDish(Dish dish){
         this.dishes.add(dish);
-        dish.getMenuSections().add(this);
+        dish.setMenuSection(this);
     }
     public void removeDish(Dish dish){
         this.dishes.remove(dish);
-        dish.getMenuSections().remove(this);
+        dish.setMenuSection(null);
     }
 
 }

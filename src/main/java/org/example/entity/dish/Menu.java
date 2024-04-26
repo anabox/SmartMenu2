@@ -12,8 +12,8 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(exclude = {"menuSections"})
-@EqualsAndHashCode(exclude = {"menuSections"})
+@ToString(exclude = {"menu_sections"})
+@EqualsAndHashCode(exclude = {"menu_sections"})
 @Entity
 @Table(name = "menus")
 public class Menu {
@@ -21,6 +21,8 @@ public class Menu {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private  Long id;
+    @Column(name = "name")
+    private  String name;
 
     @ManyToMany (cascade = {
             CascadeType.PERSIST,
@@ -28,7 +30,7 @@ public class Menu {
     })
     @JoinTable(name = "menus_sections",
             joinColumns = @JoinColumn(name = "menu_id"),
-            inverseJoinColumns = @JoinColumn(name = "menuSection_id")
+            inverseJoinColumns = @JoinColumn(name = "menu_section_id")
     )
     private Set<MenuSection> menuSections =  new HashSet<>();
 

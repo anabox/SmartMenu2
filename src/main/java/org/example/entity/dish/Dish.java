@@ -10,8 +10,8 @@ import java.util.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@EqualsAndHashCode(exclude = {"ingredients"})
-@ToString(exclude = {"ingredients"})
+@EqualsAndHashCode(exclude = {"ingredients","stop_lists"})
+@ToString(exclude = {"ingredients","stop_lists"})
 @Entity
 @Table(name = "dishes")
 public class Dish {
@@ -19,7 +19,7 @@ public class Dish {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private  Long id;
-    @Column(name = "name")
+    @Column(name = "name",unique = true, nullable = false)
     private  String name;
     @Column(name = "price")
     private  Double price;
@@ -33,8 +33,10 @@ public class Dish {
             inverseJoinColumns = @JoinColumn(name = "ingredient_id")
     )
     private Set<Ingredient> ingredients = new HashSet<>();
-    @ManyToMany(mappedBy = "dishes")
-    private Set<MenuSection> menuSections = new HashSet<>();
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private MenuSection menuSection;
+
     @ManyToMany(mappedBy = "dishes")
     private Set<StopList> stopLists;
 

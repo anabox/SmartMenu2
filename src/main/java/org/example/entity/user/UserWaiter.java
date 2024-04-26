@@ -9,24 +9,16 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 @Entity
-@Table(name="userWaiters")
+@DiscriminatorValue("user_waiter")
+@Table(name="user_waiters")
 @NoArgsConstructor
 @Data
-@EqualsAndHashCode(exclude = {"roles"})
-@ToString(exclude = {"roles"})
-public class UserWaiter {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
-    private Long id;
-    @Column(name="username")
-    private String username;
-    @Column(name="password")
-    private String password;
-    @ElementCollection
-    private Set<String> roles = new HashSet<>();
-   @OneToMany(mappedBy = "userWaiter", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Order> orders;
+@EqualsAndHashCode(exclude = {"orders"})
+@ToString(exclude = {"orders"})
+public class UserWaiter extends MenuUser{
+
+    @OneToMany(mappedBy = "userWaiter", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Order> orders = new HashSet<>();;
 
     public void addOrder(Order order) {
         orders.add(order);

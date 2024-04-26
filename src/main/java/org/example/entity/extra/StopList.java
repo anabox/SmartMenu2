@@ -15,7 +15,7 @@ import java.util.Set;
 @EqualsAndHashCode(exclude = {"dishes"})
 @ToString(exclude = {"dishes"})
 @Entity
-@Table(name = "stopLists")
+@Table(name = "stop_lists")
 public class StopList {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,8 +27,8 @@ public class StopList {
             CascadeType.PERSIST,
             CascadeType.MERGE
     })
-    @JoinTable(name = "stopLists_dishes",
-            joinColumns = @JoinColumn(name = "stopList_id"),
+    @JoinTable(name = "stop_lists_dishes",
+            joinColumns = @JoinColumn(name = "stop_list_id"),
             inverseJoinColumns = @JoinColumn(name = "dish_id")
     )
     private Set<Dish> dishes;

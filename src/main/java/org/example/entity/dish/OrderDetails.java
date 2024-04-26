@@ -25,11 +25,9 @@ public class OrderDetails {
     private Dish dish;
 
     @Column(name = "amount")
-    @NotNull
-    @Positive
     private int amount;
 
-    @OneToOne
+    @ManyToOne
     private Order order;
 
 }
